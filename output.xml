@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.0.1 (Python 3.12.5 on win32)" generated="2025-10-16T15:48:41.058880" rpa="false" schemaversion="5">
+<suite id="s1" name="Patch Objects Tests" source="E:\PROJPYONE\BRITDEMO\tests\patch_objects_tests.robot">
+<kw name="Create User Session" owner="keywords" type="SETUP">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-10-16T15:48:55.753616" level="INFO">Creating Session using : alias=restful, url=https://api.restful-api.dev, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>restful</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-10-16T15:48:55.753616" elapsed="0.001001"/>
+</kw>
+<status status="PASS" start="2025-10-16T15:48:55.685346" elapsed="0.120130"/>
+</kw>
+<test id="s1-t1" name="getest" line="10">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-10-16T15:48:55.823159" level="INFO">Creating Session using : alias=my_session, url=https://api.restful-api.dev, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>my_session</arg>
+<arg>https://api.restful-api.dev</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-10-16T15:48:55.823159" elapsed="0.000998"/>
+</kw>
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2025-10-16T15:49:06.231074" level="INFO">GET Request : url=https://api.restful-api.dev/objects/7 
+ path_url=/objects/7 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2025-10-16T15:49:06.231074" level="INFO">GET Response : url=https://api.restful-api.dev/objects/7 
+ status=200, reason=OK 
+ headers={'Date': 'Thu, 16 Oct 2025 10:19:05 GMT', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Server': 'cloudflare', 'Nel': '{"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}', 'Vary': 'Origin, Access-Control-Request-Method, Access-Control-Request-Headers', 'cf-cache-status': 'DYNAMIC', 'Report-To': '{"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=6MV0G%2FrOcqfJCC9T2a%2BNNkZG5T1JZDfI5nQMbxees2OiuasvwrtFf19k%2FNsl%2BojO9sPnE8MaCh15Z3cEoy9gj20oD67Ht3Ownq2%2BbTQ8bNAWn0Q%3D"}]}', 'Content-Encoding': 'gzip', 'CF-RAY': '98f6d0dc9c5228bc-MAA', 'alt-svc': 'h3=":443"; ma=86400'} 
+ body={"id":"7","name":"Apple MacBook Pro 16","data":{"year":2019,"price":1849.99,"CPU model":"Intel Core i9","Hard disk size":"1 TB"}} 
+ </msg>
+<msg time="2025-10-16T15:49:06.231074" level="INFO">E:\PYTHON312\Lib\site-packages\urllib3\connectionpool.py:1099: InsecureRequestWarning: Unverified HTTPS request is being made to host 'api.restful-api.dev'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg time="2025-10-16T15:49:06.236074" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>my_session</arg>
+<arg>/objects/7</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2025-10-16T15:48:55.857524" elapsed="10.378550"/>
+</kw>
+<kw name="Status Should Be" owner="RequestsLibrary">
+<arg>200</arg>
+<arg>${response}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" start="2025-10-16T15:49:06.237074" elapsed="0.001205"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${response.status_code}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-10-16T15:49:06.239283" elapsed="0.002000"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${response.json()}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-10-16T15:49:06.241283" elapsed="0.081929"/>
+</kw>
+<status status="PASS" start="2025-10-16T15:48:55.805706" elapsed="10.518506"/>
+</test>
+<test id="s1-t2" name="Valid PATCH Should Succeed" line="18">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-10-16T15:49:06.328212" level="INFO">${patch_payload} = {'data': '{"generation": "4th", "CPU model":"Intel Core i9"}'}</msg>
+<var>${patch_payload}</var>
+<arg>data={"generation": "4th", "CPU model":"Intel Core i9"}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-10-16T15:49:06.327212" elapsed="0.001000"/>
+</kw>
+<kw name="PATCH Object" owner="keywords">
+<kw name="PATCH On Session" owner="RequestsLibrary">
+<msg time="2025-10-16T15:49:06.742604" level="INFO">PATCH Request : url=https://api.restful-api.dev/objects/1 
+ path_url=/objects/1 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '70', 'Content-Type': 'application/json'} 
+ body=b'{"data": "{\\"generation\\": \\"4th\\", \\"CPU model\\":\\"Intel Core i9\\"}"}' 
+ </msg>
+<msg time="2025-10-16T15:49:06.743604" level="INFO">PATCH Response : url=https://api.restful-api.dev/objects/1 
+ status=405, reason=Method Not Allowed 
+ headers={'Date': 'Thu, 16 Oct 2025 10:19:06 GMT', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Server': 'cloudflare', 'Nel': '{"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}', 'Vary': 'Origin, Access-Control-Request-Method, Access-Control-Request-Headers', 'cf-cache-status': 'DYNAMIC', 'Report-To': '{"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=Xju6lZ3YJEMl9025dXI0Z%2BoQaO1ItV1TBQh0svqe6ybhGTLhiQs7kDF4MtBzkQqGIJO4yi%2Bban4%2BB56KvcUcM5O4JPNZcyaLNKFHmeBqnzahkr0%3D"}]}', 'CF-RAY': '98f6d0e62acf7ea4-MAA', 'alt-svc': 'h3=":443"; ma=86400'} 
+ body={"error":"1 is a reserved id and the data object of it cannot be overridden. You can create a new object via POST request and use new generated by id from it to send a PATCH request."} 
+ </msg>
+<msg time="2025-10-16T15:49:06.853696" level="INFO">E:\PYTHON312\Lib\site-packages\urllib3\connectionpool.py:1099: InsecureRequestWarning: Unverified HTTPS request is being made to host 'api.restful-api.dev'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg time="2025-10-16T15:49:06.857894" level="FAIL">HTTPError: 405 Client Error: Method Not Allowed for url: https://api.restful-api.dev/objects/1</msg>
+<var>${response}</var>
+<arg>restful</arg>
+<arg>/objects/${id}</arg>
+<arg>json=${payload}</arg>
+<doc>Sends a PATCH request on a previously created HTTP Session.</doc>
+<status status="FAIL" start="2025-10-16T15:49:06.330212" elapsed="2.156293">HTTPError: 405 Client Error: Method Not Allowed for url: https://api.restful-api.dev/objects/1</status>
+</kw>
+<return>
+<value>${response}</value>
+<status status="NOT RUN" start="2025-10-16T15:49:08.486505" elapsed="0.000000"/>
+</return>
+<var>${response}</var>
+<arg>1</arg>
+<arg>${patch_payload}</arg>
+<status status="FAIL" start="2025-10-16T15:49:06.329212" elapsed="2.158390">HTTPError: 405 Client Error: Method Not Allowed for url: https://api.restful-api.dev/objects/1</status>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${response.status_code}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-10-16T15:49:08.488608" elapsed="0.000999"/>
+</kw>
+<kw name="Status Should Be" owner="RequestsLibrary">
+<arg>${response}</arg>
+<arg>405</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="NOT RUN" start="2025-10-16T15:49:08.491605" elapsed="0.000000"/>
+</kw>
+<kw name="To Json" owner="RequestsLibrary">
+<msg time="2025-10-16T15:49:08.492606" level="WARN">Keyword 'RequestsLibrary.To Json' is deprecated. Please use ${resp.json()} instead. Have a look at the improved HTML output as pretty printing replacement.</msg>
+<var>${body}</var>
+<arg>${response.content}</arg>
+<doc>*DEPRECATED* Please use ${resp.json()} instead. Have a look at the improved HTML output as pretty printing replacement.</doc>
+<status status="NOT RUN" start="2025-10-16T15:49:08.492606" elapsed="0.003001"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${response.json()}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-10-16T15:49:08.495607" elapsed="0.000000"/>
+</kw>
+<kw name="Dictionary Should Contain Value" owner="Collections">
+<arg>${body.data.price}</arg>
+<arg>4th</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="NOT RUN" start="2025-10-16T15:49:08.496606" elapsed="0.000000"/>
+</kw>
+<kw name="Dictionary Should Contain Value" owner="Collections">
+<arg>${body.data.CPU model}</arg>
+<arg>Intel Core i9</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="NOT RUN" start="2025-10-16T15:49:08.497606" elapsed="0.000000"/>
+</kw>
+<status status="FAIL" start="2025-10-16T15:49:06.326212" elapsed="2.172395">HTTPError: 405 Client Error: Method Not Allowed for url: https://api.restful-api.dev/objects/1</status>
+</test>
+<test id="s1-t3" name="Patch Non-existent ID Should Fail" line="29">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-10-16T15:49:08.508725" level="INFO">${patch_payload} = {'data': '{"name": "Apple Maclittle Pro 16}'}</msg>
+<var>${patch_payload}</var>
+<arg>data={"name": "Apple Maclittle Pro 16}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-10-16T15:49:08.507724" elapsed="0.001001"/>
+</kw>
+<kw name="PATCH Object" owner="keywords">
+<kw name="PATCH On Session" owner="RequestsLibrary">
+<msg time="2025-10-16T15:49:09.077331" level="INFO">PATCH Request : url=https://api.restful-api.dev/objects/9999999 
+ path_url=/objects/9999999 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '48', 'Content-Type': 'application/json'} 
+ body=b'{"data": "{\\"name\\": \\"Apple Maclittle Pro 16}"}' 
+ </msg>
+<msg time="2025-10-16T15:49:09.077331" level="INFO">PATCH Response : url=https://api.restful-api.dev/objects/9999999 
+ status=404, reason=Not Found 
+ headers={'Date': 'Thu, 16 Oct 2025 10:19:09 GMT', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Server': 'cloudflare', 'Nel': '{"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}', 'Vary': 'Origin, Access-Control-Request-Method, Access-Control-Request-Headers', 'cf-cache-status': 'DYNAMIC', 'Report-To': '{"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=%2FEnbGCDrZX0bj6BZ2R5Q1dl5D%2FfEO8t9IkOuEODInCc%2FFp7DP4ckxwyq7SSutsej98lulb%2F33B3tasWAtPiG2oV22dfPJ5I4oXA3UaaB%2BGZxJ6E%3D"}]}', 'Content-Encoding': 'gzip', 'CF-RAY': '98f6d0f4ce8c7ea4-MAA', 'alt-svc': 'h3=":443"; ma=86400'} 
+ body={"error":"The Object with id = 9999999 doesn't exist. Please provide an object id which exists or generate a new Object using POST request and capture the id of it to use it as part of PATCH request after that."} 
+ </msg>
+<msg time="2025-10-16T15:49:09.078329" level="INFO">E:\PYTHON312\Lib\site-packages\urllib3\connectionpool.py:1099: InsecureRequestWarning: Unverified HTTPS request is being made to host 'api.restful-api.dev'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg time="2025-10-16T15:49:09.091696" level="FAIL">HTTPError: 404 Client Error: Not Found for url: https://api.restful-api.dev/objects/9999999</msg>
+<var>${response}</var>
+<arg>restful</arg>
+<arg>/objects/${id}</arg>
+<arg>json=${payload}</arg>
+<doc>Sends a PATCH request on a previously created HTTP Session.</doc>
+<status status="FAIL" start="2025-10-16T15:49:08.510724" elapsed="0.581972">HTTPError: 404 Client Error: Not Found for url: https://api.restful-api.dev/objects/9999999</status>
+</kw>
+<return>
+<value>${response}</value>
+<status status="NOT RUN" start="2025-10-16T15:49:09.092696" elapsed="0.000000"/>
+</return>
+<var>${response}</var>
+<arg>9999999</arg>
+<arg>${patch_payload}</arg>
+<status status="FAIL" start="2025-10-16T15:49:08.509724" elapsed="0.582972">HTTPError: 404 Client Error: Not Found for url: https://api.restful-api.dev/objects/9999999</status>
+</kw>
+<kw name="Status Should Be" owner="RequestsLibrary">
+<arg>${response}</arg>
+<arg>400</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="NOT RUN" start="2025-10-16T15:49:09.093696" elapsed="0.000000"/>
+</kw>
+<status status="FAIL" start="2025-10-16T15:49:08.504725" elapsed="0.589970">HTTPError: 404 Client Error: Not Found for url: https://api.restful-api.dev/objects/9999999</status>
+</test>
+<test id="s1-t4" name="Invalid Payload Should Fail" line="34">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-10-16T15:49:09.101694" level="INFO">${invalid_payload} = not-a-json</msg>
+<var>${invalid_payload}</var>
+<arg>not-a-json</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-10-16T15:49:09.101694" elapsed="0.000000"/>
+</kw>
+<kw name="PATCH On Session" owner="RequestsLibrary">
+<msg time="2025-10-16T15:49:09.103696" level="FAIL">AttributeError: 'str' object has no attribute 'items'</msg>
+<var>${response}</var>
+<arg>restful</arg>
+<arg>/objects/1</arg>
+<arg>data=${invalid_payload}</arg>
+<arg>headers={"Content-Type": "application/json"}</arg>
+<doc>Sends a PATCH request on a previously created HTTP Session.</doc>
+<status status="FAIL" start="2025-10-16T15:49:09.102698" elapsed="0.909434">AttributeError: 'str' object has no attribute 'items'</status>
+</kw>
+<kw name="Status Should Be" owner="RequestsLibrary">
+<arg>${response}</arg>
+<arg>404</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="NOT RUN" start="2025-10-16T15:49:10.013133" elapsed="0.000000"/>
+</kw>
+<status status="FAIL" start="2025-10-16T15:49:09.100694" elapsed="0.914438">AttributeError: 'str' object has no attribute 'items'</status>
+</test>
+<test id="s1-t5" name="Empty Payload Should Be Handled" line="39">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-10-16T15:49:10.041261" level="INFO">${patch_payload} = {}</msg>
+<var>${patch_payload}</var>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-10-16T15:49:10.041261" elapsed="0.000000"/>
+</kw>
+<kw name="PATCH Object" owner="keywords">
+<kw name="PATCH On Session" owner="RequestsLibrary">
+<msg time="2025-10-16T15:49:10.429955" level="INFO">PATCH Request : url=https://api.restful-api.dev/objects/1 
+ path_url=/objects/1 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '2', 'Content-Type': 'application/json'} 
+ body=b'{}' 
+ </msg>
+<msg time="2025-10-16T15:49:10.429955" level="INFO">PATCH Response : url=https://api.restful-api.dev/objects/1 
+ status=405, reason=Method Not Allowed 
+ headers={'Date': 'Thu, 16 Oct 2025 10:19:10 GMT', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Server': 'cloudflare', 'Nel': '{"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}', 'Vary': 'Origin, Access-Control-Request-Method, Access-Control-Request-Headers', 'cf-cache-status': 'DYNAMIC', 'Report-To': '{"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=XdXsuXZDZfq5f6Gp5aqxUX1qStFJL1JA2%2BF3XOBT2ipJuVDNrDQC8sacv9UElICIlLMTB5%2BEDRUuGeKkIupp2y0XwrBX3%2Fx2nxSfpePKNxrhzFo%3D"}]}', 'CF-RAY': '98f6d0fcdd387ea4-MAA', 'alt-svc': 'h3=":443"; ma=86400'} 
+ body={"error":"1 is a reserved id and the data object of it cannot be overridden. You can create a new object via POST request and use new generated by id from it to send a PATCH request."} 
+ </msg>
+<msg time="2025-10-16T15:49:10.429955" level="INFO">E:\PYTHON312\Lib\site-packages\urllib3\connectionpool.py:1099: InsecureRequestWarning: Unverified HTTPS request is being made to host 'api.restful-api.dev'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg time="2025-10-16T15:49:10.432955" level="FAIL">HTTPError: 405 Client Error: Method Not Allowed for url: https://api.restful-api.dev/objects/1</msg>
+<var>${response}</var>
+<arg>restful</arg>
+<arg>/objects/${id}</arg>
+<arg>json=${payload}</arg>
+<doc>Sends a PATCH request on a previously created HTTP Session.</doc>
+<status status="FAIL" start="2025-10-16T15:49:10.043378" elapsed="0.391577">HTTPError: 405 Client Error: Method Not Allowed for url: https://api.restful-api.dev/objects/1</status>
+</kw>
+<return>
+<value>${response}</value>
+<status status="NOT RUN" start="2025-10-16T15:49:10.434955" elapsed="0.000000"/>
+</return>
+<var>${response}</var>
+<arg>1</arg>
+<arg>${patch_payload}</arg>
+<status status="FAIL" start="2025-10-16T15:49:10.042375" elapsed="0.393580">HTTPError: 405 Client Error: Method Not Allowed for url: https://api.restful-api.dev/objects/1</status>
+</kw>
+<kw name="Status Should Be" owner="RequestsLibrary">
+<arg>${response}</arg>
+<arg>200</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="NOT RUN" start="2025-10-16T15:49:10.435955" elapsed="0.000000"/>
+</kw>
+<status status="FAIL" start="2025-10-16T15:49:10.034262" elapsed="0.402693">HTTPError: 405 Client Error: Method Not Allowed for url: https://api.restful-api.dev/objects/1</status>
+</test>
+<status status="FAIL" start="2025-10-16T15:48:41.341557" elapsed="29.193982"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="4" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="4" skip="0" id="s1" name="Patch Objects Tests">Patch Objects Tests</stat>
+</suite>
+</statistics>
+<errors>
+<msg time="2025-10-16T15:49:08.492606" level="WARN">Keyword 'RequestsLibrary.To Json' is deprecated. Please use ${resp.json()} instead. Have a look at the improved HTML output as pretty printing replacement.</msg>
+</errors>
+</robot>
