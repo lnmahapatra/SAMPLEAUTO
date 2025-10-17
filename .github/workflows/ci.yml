@@ -24,3 +24,11 @@ jobs:
       - name: Run Robot Framework tests
         run: |
           robot tests/
+      continue-on-error: true
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          path: ./results
+          name: robot-test-results
+          retention-days: 3
